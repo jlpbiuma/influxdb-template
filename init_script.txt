@@ -1,0 +1,14 @@
+CREATE DATABASE device_info;
+CREATE DATABASE sensor_data;
+
+CREATE USER admin WITH PASSWORD 'admin';
+CREATE USER influx_user WITH PASSWORD 'influx_password';
+
+GRANT ALL ON device_info TO influx_user;
+GRANT ALL ON sensor_data TO influx_user;
+
+USE device_info;
+CREATE RETENTION POLICY "one_day_only" ON device_info DURATION 1d REPLICATION 1;
+
+USE sensor_data;
+CREATE RETENTION POLICY "one_week_only" ON sensor_data DURATION 1w REPLICATION 1;
